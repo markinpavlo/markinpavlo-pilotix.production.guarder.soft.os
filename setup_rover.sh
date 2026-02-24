@@ -12,6 +12,14 @@ sudo locale-gen en_US en_US.UTF-8
 sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 export LANG=en_US.UTF-8
 
+# 2.5 Настройка X11, LightDM и XFCE
+export DEBIAN_FRONTEND=noninteractive
+echo "lightdm shared/default-x-display-manager select lightdm" | sudo debconf-set-selections
+sudo apt install -y xfce4 xfce4-goodies lightdm
+sudo systemctl disable gdm3 || true
+sudo systemctl enable lightdm
+sudo update-alternatives --set x-session-manager /usr/bin/startxfce4
+
 # 3. Репозиторий ROS 2 Jazzy
 sudo install -m 0755 -d /etc/apt/keyrings
 curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key | sudo gpg --dearmor -o /etc/apt/keyrings/ros-archive-keyring.gpg
@@ -22,6 +30,8 @@ sudo apt update
 sudo apt install -y ros-jazzy-ros-core ros-dev-tools \
   ros-jazzy-robot-state-publisher \
   ros-jazzy-slam-toolbox \
+  ros-jazzy-navigation2 \
+  ros-jazzy-nav2-bringup \
   ros-jazzy-xacro \
   ros-jazzy-joint-state-publisher \
   ros-jazzy-asio-cmake-module \
