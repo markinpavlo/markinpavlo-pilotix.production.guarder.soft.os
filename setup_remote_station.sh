@@ -43,10 +43,11 @@ grep -q "ROS_DOMAIN_ID=0" ~/.bashrc || echo "export ROS_DOMAIN_ID=0" >> ~/.bashr
 
 # 8. Создание исправленного алиаса rover_control
 # Используется логика: запуск RViz в фоне, пауза 4с, затем xterm на передний план
+# 8. Создание исправленного алиаса rover_control
 sed -i '/alias rover_control/d' ~/.bashrc
-echo "alias rover_control='rviz2 -d ~/partizan_rover.rviz > /dev/null 2>&1 & (sleep 4 && xterm -geometry 90x25+0+0 -T \"ROVER CONTROL\" -e \"ros2 run teleop_twist_keyboard teleop_twist_keyboard\" & sleep 1 && wmctrl -a \"ROVER CONTROL\" -b add,above) &'" >> ~/.bashrc
 
-source ~/.bashrc
+# ВАЖНО: Команда после -e идет БЕЗ внутренних кавычек
+echo "alias rover_control='rviz2 -d ~/partizan_rover.rviz > /dev/null 2>&1 & (sleep 4 && xterm -geometry 90x25+0+0 -T \"ROVER_CONTROL\" -e ros2 run teleop_twist_keyboard teleop_twist_keyboard & sleep 2 && wmctrl -a \"ROVER_CONTROL\" -b add,above) &'" >> ~/.bashrc
 
 echo "=== Настройка завершена! ==="
 echo "Для запуска управления введите: rover_control"
