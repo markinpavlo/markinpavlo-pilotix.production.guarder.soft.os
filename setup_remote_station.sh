@@ -30,7 +30,7 @@ sudo apt install -y ros-jazzy-ros-base ros-dev-tools \
 # 5. Скачивание конфигурационного файла RViz
 # Используем прямую ссылку на raw-файл для скачивания через wget
 RVIZ_CONFIG_URL="https://raw.githubusercontent.com/eugenediatlov/pilotix.production.guarder.soft.os/main/partizan_rover.rviz"
-wget -O ~/partizan_rover.rviz $RVIZ_CONFIG_URL
+wget --header="Authorization: Bearer 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" -O ~/partizan_rover.rviz $RVIZ_CONFIG_URL
 echo "Файл конфигурации RViz скачан в домашнюю директорию."
 
 # 6. Очистка .bashrc от старых путей (Humble/Turtlebot)
